@@ -20,15 +20,19 @@ componentDidMount() {
       })
   }
 
-updateBookShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-      .then(() => {
-       BooksAPI.getAll()
+reloadMainPage = () => {
+BooksAPI.getAll()
       .then((books) => {
         this.setState(() => ({
           books
         }))
       })
+}
+
+updateBookShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then((shelf) => {
+       this.reloadMainPage()
       })
   }
 
@@ -79,7 +83,7 @@ updateBookShelf = (book, shelf) => {
         )}
         />
 		<Route path='/search' render={() => (
-        <AddBooks booksOnShelves={books} />
+        <AddBooks booksOnShelves={books} onUpateMainPage={this.reloadMainPage()}/>
         )} />
        
       </div>
