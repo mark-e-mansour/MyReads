@@ -2,11 +2,37 @@ import React, { Component } from 'react'
 
 class ListBooks extends Component {
   render() {
-    const { books, shelf, onUpdateBookShelf } = this.props
+    const { books, shelf, onUpdateBookShelf, booksOnShelves, query } = this.props
     
+    let showingBooks = []
+    
+    if(shelf !== '')
+    {
+      showingBooks = books.filter((b) => (
+          b.shelf.toLowerCase() === shelf.toLowerCase()
+        ))
+    }
+    
+    if(query !== '')
+    {
+       showingBooks = books.filter((b) => (
+           b.title.toLowerCase().includes(query.toLowerCase())
+        ))
+    }
+    
+  if(booksOnShelves !== undefined)
+  {
+    for( const bos of booksOnShelves)
+  	{
+    	showingBooks.filter((b) => {
+    	return b.id === bos.id
+    	}).map((book) => book.shelf = bos.shelf)
+  	}
+  }
+   
   return (
   <ol className="books-grid">
-    {books.filter((b) => (b.shelf.toLowerCase() === shelf.toLowerCase())).map((book) => (
+    {showingBooks.map((book) => (
    		<li key={book.id}>
     		<div className="book">
     			<div className="book-top">
@@ -14,7 +40,7 @@ class ListBooks extends Component {
     				width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
 					</div>
 					<div className="book-shelf-changer">
-						<select onChange={(event) => onUpdateBookShelf(book, event.target.value)} value={shelf}>
+						<select onChange={(event) => onUpdateBookShelf(book, event.target.value)} value={book.shelf === undefined ? 'none' : book.shelf}>
 							<option value="move" disabled>Move to...</option>
                         	<option value="currentlyReading">Currently Reading</option>
                         	<option value="wantToRead">Want to Read</option>

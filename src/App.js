@@ -22,7 +22,7 @@ componentDidMount() {
 
 updateBookShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-      .then((shelf) => {
+      .then(() => {
        BooksAPI.getAll()
       .then((books) => {
         this.setState(() => ({
@@ -48,7 +48,7 @@ updateBookShelf = (book, shelf) => {
                   <div className="bookshelf-books">
                     <ListBooks books={books} shelf="currentlyReading" onUpdateBookShelf={(book, shelf) => {
       				this.updateBookShelf(book, shelf)
-					}} />
+					}} query=''/>
                   </div>
                 </div>
                 <div className="bookshelf">
@@ -56,7 +56,7 @@ updateBookShelf = (book, shelf) => {
                   <div className="bookshelf-books">
                     <ListBooks books={books} shelf="wantToRead" onUpdateBookShelf={(book, shelf) => {
       				this.updateBookShelf(book, shelf)
-					}}/>
+					}} query=''/>
                   </div>
                 </div>
                 <div className="bookshelf">
@@ -64,7 +64,7 @@ updateBookShelf = (book, shelf) => {
                   <div className="bookshelf-books">
                     <ListBooks books={books} shelf="read" onUpdateBookShelf={(book, shelf) => {
       				this.updateBookShelf(book, shelf)
-					}}/>
+					}} query=''/>
                   </div>
                 </div>
               </div>
@@ -79,7 +79,7 @@ updateBookShelf = (book, shelf) => {
         )}
         />
 		<Route path='/search' render={() => (
-        <AddBooks />
+        <AddBooks booksOnShelves={books} />
         )} />
        
       </div>
