@@ -29,6 +29,12 @@ class ListBooks extends Component {
     	}).map((book) => book.shelf = bos.shelf)
   	}
   }
+    
+ //Fix for books with empty Thumbnails
+    showingBooks.filter((b) => {
+    	return b.imageLinks === undefined
+    	}).map((book) => book.imageLinks = {thumbnail: '#'})
+  	
    
   return (
   <ol className="books-grid">
