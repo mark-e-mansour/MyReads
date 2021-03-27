@@ -20,11 +20,23 @@ componentDidMount() {
       })
   }
 
+updateBookShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then((shelf) => {
+       BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        }))
+      })
+      })
+  }
+
   render() {
     const { books } = this.state
     return (
       <div className="app">
-       <Route exact path='/' render={() => (
+       <Route exact path='/' render={({ history }) => (
     <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -34,19 +46,25 @@ componentDidMount() {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <ListBooks books={books} shelf="currentlyReading" />
+                    <ListBooks books={books} shelf="currentlyReading" onUpdateBookShelf={(book, shelf) => {
+      				this.updateBookShelf(book, shelf)
+					}} />
                   </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
-                    <ListBooks books={books} shelf="wantToRead" />
+                    <ListBooks books={books} shelf="wantToRead" onUpdateBookShelf={(book, shelf) => {
+      				this.updateBookShelf(book, shelf)
+					}}/>
                   </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <ListBooks books={books} shelf="read" />
+                    <ListBooks books={books} shelf="read" onUpdateBookShelf={(book, shelf) => {
+      				this.updateBookShelf(book, shelf)
+					}}/>
                   </div>
                 </div>
               </div>
