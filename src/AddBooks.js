@@ -37,7 +37,9 @@ class AddBooks extends Component {
     updateBookShelf = (book, shelf) => {
         BooksAPI.update(book, shelf)
             .then((shelf) => {
-                this.props.onUpateMainPage()
+           		if (this.props.onUpateMainPage) {
+      				this.props.onUpateMainPage()
+    			}
             })
     }
 
