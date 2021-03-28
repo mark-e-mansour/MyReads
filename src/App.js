@@ -20,6 +20,7 @@ class BooksApp extends React.Component {
             })
     }
 
+	//Method for reloading books on main page after updates are done
     reloadMainPage = () => {
         BooksAPI.getAll()
             .then((books) => {
@@ -29,6 +30,7 @@ class BooksApp extends React.Component {
             })
     }
 
+	//Method for updaing books after changing shelves
     updateBookShelf = (book, shelf) => {
         BooksAPI.update(book, shelf)
             .then((shelf) => {

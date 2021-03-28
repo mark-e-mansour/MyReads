@@ -6,18 +6,21 @@ class ListBooks extends Component {
 
         let showingBooks = []
 
+        //Filter by shelf "used for loading books in main page according to shelf"
         if (shelf !== '') {
             showingBooks = books.filter((b) => (
                 b.shelf.toLowerCase() === shelf.toLowerCase()
             ))
         }
 
+      	//Filter by query "used for loading books in Search page
         if (query !== '') {
             showingBooks = books.filter((b) => (
                 b.title.toLowerCase().includes(query.toLowerCase())
             ))
         }
 
+        //Assigning book shelf for Search results according to books in main page
         if (booksOnShelves !== undefined) {
             for (const bos of booksOnShelves) {
                 showingBooks.filter((b) => {

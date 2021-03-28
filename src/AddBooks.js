@@ -9,11 +9,13 @@ class AddBooks extends Component {
         books: []
     }
 
+	//Method to update state each time query is updated
     updateQuery = (query) => {
         this.setState(() => ({
             query: query
         }))
 
+      	//Make sure query is not empty before making the API request
         if (query !== '') {
             BooksAPI.search(query.trim(), 20)
                 .then((books) => {
@@ -31,6 +33,7 @@ class AddBooks extends Component {
         }
     }
 
+	//Method for calling API for updating books & also for updating main page
     updateBookShelf = (book, shelf) => {
         BooksAPI.update(book, shelf)
             .then((shelf) => {
